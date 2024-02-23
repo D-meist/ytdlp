@@ -1,0 +1,22 @@
+import subprocess
+
+def download_video_audio(url):
+    # Command for video
+    video_command = f"yt-dlp -f 'bv[height=1440]+ba[ext=m4a]/bv[height=1280]+ba[ext=m4a]/bv[height=1080][ext=mp4]+ba[ext=m4a]' --merge-output-format mp4 {url}"
+    
+    # Command for audio in mp3 format
+    audio_command = f"yt-dlp -f 'ba' -x --audio-format mp3 {url} -o '%(title)s.%(ext)s'"
+
+    print("Press 1 for video and press 2 for audio.")
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        subprocess.run(video_command, shell=True)
+    elif choice == "2":
+        subprocess.run(audio_command, shell=True)
+    else:
+        print("Invalid choice.")
+
+if __name__ == "__main__":
+    url = input("Enter the URL: ")
+    download_video_audio(url)
